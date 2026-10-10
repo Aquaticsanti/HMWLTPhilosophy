@@ -31,16 +31,17 @@ while True:
     for tag in soup.find_all(["b", "i", "span", "p", "abbr"]):
         tag.unwrap()
     soup = str(soup)
-    tempIndex = ""
-    for index, char in enumerate(soup):
-        if char != "(" and char != ")":
-            continue
-        elif char == "(":
-            if tempIndex == "":
-                tempIndex = index
-        elif char == ")":
-            soup = soup.replace(soup[tempIndex:index+1], "")
-            break
+    if "(" in soup:
+        tempIndex = ""
+        for index, char in enumerate(soup):
+            if char != "(" and char != ")":
+                continue
+            elif char == "(":
+                if tempIndex == "":
+                    tempIndex = index
+            elif char == ")":
+                soup = soup.replace(soup[tempIndex:index+1], "")
+                break
     soup = BeautifulSoup(soup, 'html.parser')
     soup = soup.select_one("a")
     link = soup["href"]
