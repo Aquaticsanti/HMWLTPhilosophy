@@ -9,7 +9,7 @@ _See more on why this occurs [here](https://en.wikipedia.org/wiki/Wikipedia:Gett
 
 ---
 # Demo video
-<video src="demo-video.mp4" width="" height="" controls></video>
+<video src="demo-video.mp4" width="640" height="300" controls></video>
 
 ---
 # Usage
