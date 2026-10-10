@@ -27,10 +27,19 @@ if args.start is None:
                 start = c.input("You think you're funny, huh? Provide an article that [italic]isn't[/italic] the one on Philosophy: ")
             else:
                 break
+    end = "https://en.wikipedia.org/wiki/Philosophy"
 else:
     if "en.wikipedia.org/wiki/" not in args.start:
         raise ValueError("Article is not in Enlgish or was not provided as a full link")
     start = args.start
+    if args.end is not None:
+        if "en.wikipedia.org/wiki/" not in args.end:
+            raise ValueError("End article is not in Enlgish or was not provided as a full link")
+        elif args.start == args.end:
+            raise ValueError("Start and end articles are identical")
+        end = args.end
+    else:
+        end = "https://en.wikipedia.org/wiki/Philosophy"
 
 html = requests.get(start, headers={"User-Agent": "HMWLTPhilosophy/1.0 (aquaticsanti@gmail.com)"})
 visitedPages = [start]
@@ -63,9 +72,9 @@ while True:
         c.print(f"Whoops, this loops at [bold]{len(visitedPages)+1}[/bold] pages...")
         break
     visitedPages.append(link)
-    if link == "https://en.wikipedia.org/wiki/Philosophy" or link == "http://en.wikipedia.org/wiki/Philosophy":
+    if link == end:
         c.print(f"[bold][link={link}]{link.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link][/bold]", end=" 🏁 \n")
-        c.print(f"[bold]{len(visitedPages)}[/bold] pages to [link=https://en.wikipedia.org/wiki/Philosophy]Philosophy[/link]!")
+        c.print(f"[bold]{len(visitedPages)}[/bold] pages to [link={end}]{end.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link]!")
         break
     c.print(f"[bold][link={link}]{link.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link][/bold]", end=" → ")
     html = requests.get(link, headers={"User-Agent": "HMWLTPhilosophy/1.0 (aquaticsanti@gmail.com)"})
