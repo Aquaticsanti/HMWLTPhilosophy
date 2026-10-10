@@ -27,7 +27,7 @@ c.print(f"[bold][link={start}]{start.replace("https://en.wikipedia.org/wiki/", "
 while True:
     soup = BeautifulSoup(html.text, 'html.parser')
     soup = soup.select_one('[data-mw-section-id="0"]')
-    soup = soup.select_one("p:not(.mw-empty-elt)")
+    soup = soup.select_one("p:not(.mw-empty-elt):not(.sidebar p):not(table p)") # ChatGPT helped with this, as the article on religion was causing wayy too much trouble
     for tag in soup.find_all(["b", "i", "span", "p", "abbr"]):
         tag.unwrap()
     soup = str(soup)
