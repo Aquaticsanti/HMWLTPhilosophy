@@ -44,6 +44,10 @@ while True:
     soup = BeautifulSoup(soup, 'html.parser')
     soup = soup.select_one("a")
     link = soup["href"]
+    if link in visitedPages:
+        c.print(f"[bold][link={link}]{link.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link][/bold]", end=" 🔁 \n")
+        c.print(f"Whoops, this loops at [bold]{len(visitedPages)+1}[/bold] pages...")
+        break
     visitedPages.append(link)
     if link == "https://en.wikipedia.org/wiki/Philosophy" or link == "http://en.wikipedia.org/wiki/Philosophy":
         c.print(f"[bold][link={link}]{link.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link][/bold]", end=" 🏁 \n")
