@@ -9,7 +9,8 @@ _See more on why this occurs [here](https://en.wikipedia.org/wiki/Wikipedia:Gett
 
 ---
 # Demo video
-<video src="https://github.com/Aquaticsanti/HMWLTPhilosophy/blob/main/demo-video.mp4" width="640" height="300" controls></video>
+
+https://github.com/user-attachments/assets/fe2e0e2a-48ce-436d-bb8e-a30b36380302
 
 ---
 # Usage
