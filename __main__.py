@@ -43,8 +43,10 @@ while True:
                 soup = soup.replace(soup[tempIndex:index+1], "")
                 break
     soup = BeautifulSoup(soup, 'html.parser')
-    soup = soup.select_one("a")
-    link = soup["href"]
+    soupTemp = soup.select_one("a")
+    link = soupTemp["href"]
+    if "#cite_note" in link:
+        link = soup.select_one("a:nth-of-type(2)")["href"]
     if link in visitedPages:
         c.print(f"[bold][link={link}]{link.replace("https://en.wikipedia.org/wiki/", "").replace("http://en.wikipedia.org/wiki/", "").replace("_", " ")}[/link][/bold]", end=" 🔁 \n")
         c.print(f"Whoops, this loops at [bold]{len(visitedPages)+1}[/bold] pages...")
