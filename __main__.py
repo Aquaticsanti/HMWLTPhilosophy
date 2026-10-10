@@ -16,3 +16,26 @@ while True:
         start = c.input("That's doesn't seem to be in english or a full link: ")
     else:
         break
+
+html = requests.get(start, headers={"User-Agent": "HMWLTPhilosophy/1.0 (aquaticsanti@gmail.com)"})
+soup = BeautifulSoup(html.text, 'html.parser')
+
+soup = soup.select_one('[data-mw-section-id="0"]')
+soup = soup.select_one("p:not(.mw-empty-elt)")
+for tag in soup.find_all(["b", "i", "span", "p", "abbr"]):
+    tag.unwrap()
+soup = str(soup)
+tempIndex = ""
+for index, char in enumerate(soup):
+    if char != "(" and char != ")":
+        continue
+    elif char == "(":
+        if tempIndex == "":
+            tempIndex = index
+    elif char == ")":
+        soup = soup.replace(soup[tempIndex:index+1], "")
+        break
+soup = BeautifulSoup(soup, 'html.parser')
+soup = soup.select_one("a")
+link = soup["href"]
+print(link)
